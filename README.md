@@ -10,7 +10,7 @@ Finally, I also inspected <a href="https://www.zalora.com.my/robots.txt">robots.
 
 I tested my code in docker using the following commands (this include getting the output to host machine rather than the container itself):<br/>
 <strong>
-docker build -t zalora_scraping . <br/>
+docker build -t zalora_scraping . <br/> <br/>
 docker run --rm -it -v %cd%:/code/ zalora_scraping
 </strong><br/><br/>
 To run this project simply execute the following command:<br/><br/>
