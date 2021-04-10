@@ -13,5 +13,5 @@ I tested my code in docker using the following commands (this include getting th
 docker build -t zalora_scraping . <br/>
 docker run --rm -it -v %cd%:/code/ zalora_scraping
 </strong><br/><br/>
-Execute this use docker yml file:<br/><br/>
+To run this project simply execute the following command:<br/><br/>
 <strong>docker-compose up</strong>
