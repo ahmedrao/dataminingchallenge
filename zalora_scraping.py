@@ -26,26 +26,33 @@ pages = math.ceil(total_products / limit)
 current_page = 0
 
 while (1): #pages != current_page - Removed this condition here since one additional request was generated
-	scraped_products.append([
-		{
-				'Brand': product['brand'],
-				'Actual Price': product['price']['normal'],
-				'Discounted Price': product['price']['special'],
-				'Images': product['image']
-		} 
-		for product in products['products']
-	])
+	try:
+		scraped_products.extend([
+			{
+					'Brand': product['brand'],
+					'Actual Price': product['price']['normal'],
+					'Discounted Price': product['price']['special'],
+					'Images': product['image']
+			} 
+			for product in products['products']
+		])
+		current_page += 1
+		offset += limit
 
-	current_page += 1
-	offset += limit
+		if pages == current_page:
+			break
+		print("Fetching Page ", current_page+1, "...")
 
-	if pages == current_page:
-		break
-	print("Fetching Page ", current_page+1, "...")
-	url = base_url.format(limit=limit,offset=offset)
-	products = request_data(url)
+		url = base_url.format(limit=limit,offset=offset)
+		products = request_data(url)
+	except Exception as e:
+		print("Error while fetching products:", e)
 
-
+print("Verifying...")
+if total_products == len(scraped_products):
+	print("All Products Fetched...")
+else:
+	print("Partial Products Fetched...")
 
 ### Dump scraped data in json file
 print("Writing products to **scraped_products.json**...")
